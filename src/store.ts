@@ -22,36 +22,39 @@ const createPatient = (patient:DraftPatient) : Patient  => {
 
 
 
-export const usePatientStore = create<PatientState>()(devtools(
-    persist(
-        (set) => ({
-    patients: [],
-    activeId:'',
-    addPatient: (data) => {
-        const newPatient = createPatient(data)
-            set((state) => ({
-                patients:[...state.patients, newPatient]
-            }))
-    },
-    deletePatient: (id:Patient['id']) => {
-        set((state) => ({
-            patients: state.patients.filter((patient) => patient.id !== id)
-        }))
-    },
-    getPatientById:(id) => {
-       set((state) => ({
-        activeId:id
-       }))
-    },
-    updatePatient: (data) => {
-        set((state) => ({
-            patients: state.patients.map((patient) => patient.id === state.activeId ? {id:state.activeId, ...data} : patient),
-            activeId:''
-        }))
-    }
-
-
-}),{
-    name:'patients',
-    storage:createJSONStorage(() => localStorage)
-}))
+export const usePatientStore = create<PatientState>()(
+    devtools(
+        persist(
+            (set) => ({
+                patients: [],
+                activeId:'',
+                addPatient: (data) => {
+                    const newPatient = createPatient(data)
+                    set((state) => ({
+                        patients:[...state.patients, newPatient]
+                    }))
+                },
+                deletePatient: (id:Patient['id']) => {
+                    set((state) => ({
+                        patients: state.patients.filter((patient) => patient.id !== id)
+                    }))
+                },
+                getPatientById:(id) => {
+                    set((state) => ({
+                        activeId:id
+                    }))
+                },
+                updatePatient: (data) => {
+                    set((state) => ({
+                        patients: state.patients.map((patient) => patient.id === state.activeId ? {id:state.activeId, ...data} : patient),
+                        activeId:''
+                    }))
+                }
+            }),
+            {
+                name:'patients',
+                storage:createJSONStorage(() => localStorage)
+            }
+        )
+    )
+)
