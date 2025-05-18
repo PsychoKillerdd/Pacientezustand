@@ -1,5 +1,5 @@
 import {create} from 'zustand'
-import { Patient, DraftPatient } from './interfaces' 
+import type { Patient, DraftPatient } from './interfaces' 
 import { v4 as uuidv4 } from 'uuid';
 import {createJSONStorage, devtools,persist} from 'zustand/middleware'
 

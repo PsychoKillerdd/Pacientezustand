@@ -6,4 +6,5 @@ export interface Patient {
     date:Date;
     symptoms:string;
 }
-export interface DraftPatient extends Omit<Patient, 'id'> {}
+
+export type DraftPatient = Omit<Patient, 'id'>;
