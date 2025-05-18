@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import { Patient, DraftPatient } from './interfaces' 
 import { v4 as uuidv4 } from 'uuid';
-import {devtools,persist} from 'zustand/middleware'
+import {createJSONStorage, devtools,persist} from 'zustand/middleware'
 
 
 
@@ -51,4 +51,7 @@ export const usePatientStore = create<PatientState>()(devtools(
     }
 
 
-}))))
+}),{
+    name:'patients',
+    storage:createJSONStorage(() => localStorage)
+}))
